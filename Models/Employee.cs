@@ -22,16 +22,12 @@ namespace System_Employee.Models
             return bond;
         }
 
-        public void ShowInfo(List<Employee> Employees)
+        public void ShowInfo()
         {
             string LineEmployeeSeparator = new('-', Console.WindowWidth);
-            Console.WriteLine($"Nro | {"Nombre", -14} | {"Apellido", -14} | {"Numero Identificador", -14} | {"Edad", -4} | {"Posicion", -14} | {"Salario", -10} | {"Bonificacion", -10}");
+            Console.WriteLine($"{Id} | {Name,-14} | {LastName,-14} | {IdentificateNumber,-14} | {Age,-4} | {Position,-14} | {BonificationCalculate()}");
             Console.WriteLine(LineEmployeeSeparator);
-            for (int i = 0; i < Employees.Count; i++)
-            {
-                Console.WriteLine($"{i + 1} | {Employees[i].Name, -14} | {Employees[i].LastName, -14} | {Employees[i].IdentificateNumber, -14} | {Employees[i].Age, -4} | {Employees[i].Position, -14} | {Employees[i].BonificationCalculate()}");
-                Console.WriteLine(LineEmployeeSeparator);
-            }
+
         }
     }
 }

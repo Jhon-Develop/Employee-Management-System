@@ -43,9 +43,12 @@ namespace System_Employee.Models
 
         public void ShowEmployees()
         {
+            string ShowLineSeparator = new('-', Console.WindowWidth);
+            Console.WriteLine($"Nro | {"Nombre",-14} | {"Apellido",-14} | {"Numero Identificador",-14} | {"Edad",-4} | {"Posicion",-14} | {"Salario",-10} | {"Bonificacion",-10}");
+            Console.WriteLine(ShowLineSeparator);
             foreach (var employee in Employees)
             {
-                employee.ShowInfo(Employees);
+                employee.ShowInfo();
             }
         }
 
@@ -77,7 +80,7 @@ namespace System_Employee.Models
             Employee? employee = Employees.Find(e => e.IdentificateNumber == IdentificateNumber);
             if (employee != null)
             {
-                employee.ShowInfo(Employees);
+                employee.ShowInfo();
             }
             else
             {
@@ -90,7 +93,7 @@ namespace System_Employee.Models
             Employee? employee = Employees.Find(e => e.Position == position);
             if (employee != null)
             {
-                employee.ShowInfo(Employees);
+                employee.ShowInfo();
             }
             else
             {
