@@ -35,6 +35,19 @@ namespace System_Employee.Models
             return input;
         }
 
+        public static byte InputByte(string prompt)
+        {
+            Console.Write(prompt);
+
+            byte input;
+            while (!byte.TryParse((Console.ReadLine() ?? string.Empty).AsSpan(), out input))
+            {
+                Console.WriteLine("Por favor, ingresa un valor entero");
+                Console.Write(prompt);
+            }
+            return input;
+        }
+
         public static double InputDouble(string prompt)
         {
             Console.Write(prompt);
