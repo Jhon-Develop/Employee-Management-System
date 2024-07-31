@@ -10,5 +10,12 @@ namespace System_Employee.Models
         public string Name { get; set; } = name;
         public string LastName { get; set; } = lastName;
         public int Age { get; set; } = age;
+
+        public virtual void ShowInfo()
+        {
+            string LinePersonSeparator = new('-', Console.WindowWidth);
+            Console.WriteLine($"{Name,-14} | {LastName,-14} | {Age,-4}");
+            Console.WriteLine(LinePersonSeparator);
+        }
     }
 }
