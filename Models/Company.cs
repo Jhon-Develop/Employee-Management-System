@@ -9,18 +9,19 @@ namespace System_Employee.Models
     {
         public string Name { get; set; } = name;
         public string Address { get; set; } = address;
-        public List<Employee> Employees { get; set; } = new List<Employee>();
+        public List<Employee> Employees { get; set; } = [];
+        public List<Client> Clients { get; set; } = [];
 
         public void AddEmployee()
         {
             string newName = Setting.InputString("Ingrese el nombre del nuevo empleado: ");
             string newLastName = Setting.InputString("Ingrese el apellido del nuevo empleado: ");
             string newIdentificateNumber = Setting.InputString("Ingrese el numero de identificacion del nuevo empleado: ");
-            byte newAge = Setting.InputByte("Ingrese la edad del nuevo empleado: ");
+            int newAge = Setting.InputInt("Ingrese la edad del nuevo empleado: ");
             string newPosition = Setting.InputString("Ingrese la posicion del nuevo empleado: ");
             double newSalary = Setting.InputDouble("Ingrese el salario del nuevo empleado: ");
 
-            Employee newEmployee = new(newName, newLastName, newIdentificateNumber, newAge, newPosition, newSalary);
+            Employee newEmployee = new(newName, newLastName,  newAge, newIdentificateNumber, newPosition, newSalary);
             Employees.Add(newEmployee);
 
             Console.WriteLine("");
@@ -98,6 +99,46 @@ namespace System_Employee.Models
             else
             {
                 Console.WriteLine("No se encontro el empleado con esa posicion!");
+            }
+        }
+
+        public void AddClient()
+        {
+            string newName = Setting.InputString("Ingrese el nombre del nuevo cliente => ");
+            string newLastName = Setting.InputString("Ingrese el apellido del nuevo cliente => ");
+            int newAge = Setting.InputInt("Ingrese la edad del nuevo cliente => ");
+            string newEmail = Setting.InputString("Ingrese el email del nuevo cliente => ");
+            string newTelephoneNumber = Setting.InputString("Ingrese el numero de telefono del nuevo cliente => ");
+
+            Client newClient = new(newName, newLastName, newAge, newEmail, newTelephoneNumber);
+            Clients.Add(newClient);
+
+            Console.WriteLine("");
+            Console.WriteLine("Cliente agregado con éxito!");
+            Console.WriteLine("");
+        }
+
+        public void RemoveClient(string name, string lastname)
+        {
+            Client? client = Clients.Find(c => c.Name == name && c.LastName == lastname);
+            if (client != null)
+            {
+                Clients.Remove(client);
+            }
+
+            Console.WriteLine("");
+            Console.WriteLine("Cliente eliminado con éxito!");
+            Console.WriteLine("");
+        }
+
+        public void ShowClients()
+        {
+            string ShowLineSeparator = new('-', Console.WindowWidth);
+            Console.WriteLine($"Nro | {"Nombre",-14} | {"Apellido",-14} | {"Edad",-4} | {"Email",-14} | {"Numero de Telefono",-14}");
+            Console.WriteLine(ShowLineSeparator);
+            foreach (var client in Clients)
+            {
+                client.ShowInfo();
             }
         }
     }
