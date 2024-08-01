@@ -21,7 +21,7 @@ namespace System_Employee.Models
             string newPosition = Setting.InputString("Ingrese la posicion del nuevo empleado: ");
             double newSalary = Setting.InputDouble("Ingrese el salario del nuevo empleado: ");
 
-            Employee newEmployee = new(newName, newLastName,  newAge, newIdentificateNumber, newPosition, newSalary);
+            Employee newEmployee = new(newName, newLastName, newAge, newIdentificateNumber, newPosition, newSalary);
             Employees.Add(newEmployee);
 
             Console.WriteLine("");
@@ -35,6 +35,10 @@ namespace System_Employee.Models
             if (employee != null)
             {
                 Employees.Remove(employee);
+            }
+            else
+            {
+                Console.WriteLine("No se encontro el empleado con ese nombre y apellido!");
             }
 
             Console.WriteLine("");
@@ -124,6 +128,10 @@ namespace System_Employee.Models
             if (client != null)
             {
                 Clients.Remove(client);
+            }
+            else
+            {
+                Console.WriteLine("No se encontro el cliente con ese nombre y apellido!");
             }
 
             Console.WriteLine("");

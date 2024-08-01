@@ -5,17 +5,13 @@ using System.Threading.Tasks;
 
 namespace System_Employee.Models
 {
-    public class Person (string name, string lastName, int age)
+    public abstract class Person (string name, string lastName, int age)
     {
-        public string Name { get; set; } = name;
-        public string LastName { get; set; } = lastName;
-        public int Age { get; set; } = age;
+        protected Guid Id { get; set; } = Guid.NewGuid();
+        protected string Name { get; set; } = name;
+        protected string LastName { get; set; } = lastName;
+        protected int Age { get; set; } = age;
 
-        public virtual void ShowInfo()
-        {
-            string LinePersonSeparator = new('-', Console.WindowWidth);
-            Console.WriteLine($"{Name,-14} | {LastName,-14} | {Age,-4}");
-            Console.WriteLine(LinePersonSeparator);
-        }
+        public abstract void ShowInfo();
     }
 }
