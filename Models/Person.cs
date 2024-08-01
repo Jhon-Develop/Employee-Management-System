@@ -12,10 +12,18 @@ namespace System_Employee.Models
         protected string LastName { get; set; } = lastName;
         protected int Age { get; set; } = age;
 
-        public string GetName() => Name;
+        // public string GetName() => Name;
+        public string GetName()
+        {
+            return Name;
+        }
         public string GetLastName() => LastName;
         public int GetAge() => Age;
-        public string SetName(string name) => Name = name;
+        // public string SetName(string name) => Name = name;
+        public string SetName(string name)
+        {
+            return Name = name;
+        }
         public string SetLastName(string lastName) => LastName = lastName;
         public int SetAge(int age) => Age = age;
 

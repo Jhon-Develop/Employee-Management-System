@@ -9,8 +9,34 @@ namespace System_Employee.Models
     {
         public string Name { get; set; } = name;
         public string Address { get; set; } = address;
-        public List<Employee> Employees { get; set; } = [];
+        public List<Employee> Employees { get; set; } =
+        [
+            new Employee("Alice", "Johnson", 29, "E12345", "Manager", 50000),
+            new Employee("Bob", "Smith", 34, "E23456", "Developer", 60000),
+            new Employee("Charlie", "Brown", 28, "E34567", "Designer", 55000),
+            new Employee("Diana", "Evans", 41, "E45678", "Tester", 45000),
+            new Employee("Edward", "Wilson", 37, "E56789", "Support", 40000)
+        ];
         public List<Client> Clients { get; set; } = [];
+        public List<Product> Products { get; set; } =
+        [
+            new Product("Laptop", "High-end gaming laptop", 1499.99),
+            new Product("Smartphone", "Latest model with 5G", 999.99),
+            new Product("Headphones", "Noise-cancelling headphones", 199.99),
+            new Product("Smartwatch", "Waterproof smartwatch", 299.99),
+            new Product("Tablet", "10-inch screen tablet", 499.99),
+            new Product("Monitor", "4K resolution monitor", 399.99),
+            new Product("Keyboard", "Mechanical keyboard", 89.99),
+            new Product("Mouse", "Wireless mouse", 49.99),
+            new Product("Printer", "All-in-one printer", 149.99),
+            new Product("Camera", "Digital SLR camera", 899.99),
+            new Product("Speaker", "Bluetooth speaker", 79.99),
+            new Product("Router", "High-speed wireless router", 129.99),
+            new Product("External HDD", "1TB external hard drive", 59.99),
+            new Product("SSD", "512GB solid state drive", 119.99),
+            new Product("Webcam", "1080p HD webcam", 59.99)
+        ];
+        public List<Sale> Sales { get; set; } = [];
 
         public void AddEmployee()
         {
@@ -66,7 +92,7 @@ namespace System_Employee.Models
             {
                 string name = Setting.InputString("Ingrese el nombre del empleado => ");
                 string lastName = Setting.InputString("Ingrese el apellido del empleado => ");
-                byte age = Setting.InputByte("Ingrese la edad del empleado => ");
+                int age = Setting.InputInt("Ingrese la edad del empleado => ");
                 string position = Setting.InputString("Ingrese la posicion del empleado => ");
                 double salary = Setting.InputDouble("Ingrese el salario del empleado => ");
 
@@ -145,5 +171,60 @@ namespace System_Employee.Models
                 client.ShowInfo();
             }
         }
+
+        public void AddSale(List<Product> products, List<Client> clients, List<Employee> employees)
+        {
+            ShowProducts();  // Mostrar lista de productos disponibles
+            ShowClients();    // Mostrar lista de clientes (si es necesario)
+            ShowEmployees(); // Mostrar lista de empleados disponibles
+
+            var newSales = Administration.CreatePurchaseProduct(products, employees, clients);
+            Sales.Add(newSales);
+
+            Console.WriteLine("");
+            Console.WriteLine("Gracias por su compra!");
+            Console.WriteLine("");
+        }
+        public void RemoveProduct(string name)
+        {
+            Product? product = Products.Find(p => p.Name == name);
+            if (product != null)
+            {
+                Products.Remove(product);
+            }
+            else
+            {
+                Console.WriteLine("No se encontro el producto con ese nombre!");
+            }
+
+            Console.WriteLine("");
+            Console.WriteLine("Producto eliminado con éxito!");
+            Console.WriteLine("");
+        }
+
+        public void ShowProducts()
+        {
+            Setting.LineSeparator('-');
+            Console.WriteLine($"Nro | {"Nombre",-14} | {"Descripcion",-14} | {"Precio",-10}");
+            Setting.LineSeparator('-');
+            foreach (var product in Products)
+            {
+                product.ShowInfo();
+            }
+        }
+
+        public void ShowSales()
+        {
+            Setting.LineSeparator('-');
+            Console.WriteLine($"{Setting.Header("Ventas realizadas")}");
+            Setting.LineSeparator('-');
+            foreach (var sale in Sales)
+            {
+                Setting.LineSeparator('-');
+                sale.ShowInfo();
+            }
+        }
+
+
     }
 }
