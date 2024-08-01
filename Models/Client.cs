@@ -12,9 +12,9 @@ namespace System_Employee.Models
 
         public override void ShowInfo()
         {
-            string LineClinetSeparator = new('-', Console.WindowWidth);
+            Setting.LineSeparator('-');
             Console.WriteLine($"{Name,-14} | {LastName,-14} | {Age,-4} | {Email,-14} | {TelephoneNumber,-14}");
-            Console.WriteLine(LineClinetSeparator);
+            Setting.LineSeparator('-');
         }
     }
 }

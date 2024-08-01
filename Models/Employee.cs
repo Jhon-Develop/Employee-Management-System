@@ -7,7 +7,7 @@ namespace System_Employee.Models
 {
     public class Employee(string name, string lastName, int age, string identificateNumber, string position, double salary) : Person(name, lastName, age)
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public new Guid Id { get; set; } = Guid.NewGuid();
         public string IdentificateNumber { get; set; } = identificateNumber;
         public string Position { get; set; } = position;
         public double Salary { get; set; } = salary;
@@ -21,9 +21,9 @@ namespace System_Employee.Models
 
         public override void ShowInfo()
         {
-            string LineEmployeeSeparator = new('-', Console.WindowWidth);
+            Setting.LineSeparator('-');
             Console.WriteLine($"{Id} | {Name,-14} | {LastName,-14} | {IdentificateNumber,-14} | {Age,-4} | {Position,-14} | {BonificationCalculate()}");
-            Console.WriteLine(LineEmployeeSeparator);
+            Setting.LineSeparator('-');
 
         }
     }

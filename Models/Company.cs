@@ -14,24 +14,16 @@ namespace System_Employee.Models
 
         public void AddEmployee()
         {
-            string newName = Setting.InputString("Ingrese el nombre del nuevo empleado: ");
-            string newLastName = Setting.InputString("Ingrese el apellido del nuevo empleado: ");
-            string newIdentificateNumber = Setting.InputString("Ingrese el numero de identificacion del nuevo empleado: ");
-            int newAge = Setting.InputInt("Ingrese la edad del nuevo empleado: ");
-            string newPosition = Setting.InputString("Ingrese la posicion del nuevo empleado: ");
-            double newSalary = Setting.InputDouble("Ingrese el salario del nuevo empleado: ");
-
-            Employee newEmployee = new(newName, newLastName, newAge, newIdentificateNumber, newPosition, newSalary);
-            Employees.Add(newEmployee);
-
+            var AddEmployee = Administration.CreateEmployee();
+            Employees.Add(AddEmployee);
             Console.WriteLine("");
             Console.WriteLine("Empleado agregado con éxito!");
             Console.WriteLine("");
         }
 
-        public void RemoveEmployee(string name, string lastname)
+        public void RemoveEmployee(string name, string lastname, string IdentificateNumber)
         {
-            Employee? employee = Employees.Find(e => e.Name == name && e.LastName == lastname);
+            Employee? employee = Employees.Find(e => e.GetName() == name && e.GetLastName() == lastname);
             if (employee != null)
             {
                 Employees.Remove(employee);
@@ -41,6 +33,16 @@ namespace System_Employee.Models
                 Console.WriteLine("No se encontro el empleado con ese nombre y apellido!");
             }
 
+            Employee? employeeNumber = Employees.Find(e => e.IdentificateNumber == IdentificateNumber);
+            if (employeeNumber != null)
+            {
+                Employees.Remove(employeeNumber);
+            }
+            else
+            {
+                Console.WriteLine("No se encontro el empleado con ese numero de identificacion!");
+            }
+
             Console.WriteLine("");
             Console.WriteLine("Empleado eliminado con éxito!");
             Console.WriteLine("");
@@ -48,9 +50,9 @@ namespace System_Employee.Models
 
         public void ShowEmployees()
         {
-            string ShowLineSeparator = new('-', Console.WindowWidth);
+            Setting.LineSeparator('-');
             Console.WriteLine($"Nro | {"Nombre",-14} | {"Apellido",-14} | {"Numero Identificador",-14} | {"Edad",-4} | {"Posicion",-14} | {"Salario",-10} | {"Bonificacion",-10}");
-            Console.WriteLine(ShowLineSeparator);
+            Setting.LineSeparator('-');
             foreach (var employee in Employees)
             {
                 employee.ShowInfo();
@@ -68,9 +70,9 @@ namespace System_Employee.Models
                 string position = Setting.InputString("Ingrese la posicion del empleado => ");
                 double salary = Setting.InputDouble("Ingrese el salario del empleado => ");
 
-                employee.Name = string.IsNullOrEmpty(name) ? employee.Name : name;
-                employee.LastName = string.IsNullOrEmpty(lastName) ? employee.LastName : lastName;
-                employee.Age = age == 0 ? employee.Age : age;
+                employee.SetName(string.IsNullOrEmpty(name) ? employee.GetName() : name);
+                employee.SetLastName(string.IsNullOrEmpty(lastName) ? employee.GetLastName() : lastName);
+                employee.SetAge(age == 0 ? employee.GetAge() : age);
                 employee.Position = string.IsNullOrEmpty(position) ? employee.Position : position;
                 employee.Salary = salary == 0 ? employee.Salary : salary;
 
@@ -108,14 +110,8 @@ namespace System_Employee.Models
 
         public void AddClient()
         {
-            string newName = Setting.InputString("Ingrese el nombre del nuevo cliente => ");
-            string newLastName = Setting.InputString("Ingrese el apellido del nuevo cliente => ");
-            int newAge = Setting.InputInt("Ingrese la edad del nuevo cliente => ");
-            string newEmail = Setting.InputString("Ingrese el email del nuevo cliente => ");
-            string newTelephoneNumber = Setting.InputString("Ingrese el numero de telefono del nuevo cliente => ");
-
-            Client newClient = new(newName, newLastName, newAge, newEmail, newTelephoneNumber);
-            Clients.Add(newClient);
+            var AddClient = Administration.CreateClient();
+            Clients.Add(AddClient);
 
             Console.WriteLine("");
             Console.WriteLine("Cliente agregado con éxito!");
@@ -124,7 +120,7 @@ namespace System_Employee.Models
 
         public void RemoveClient(string name, string lastname)
         {
-            Client? client = Clients.Find(c => c.Name == name && c.LastName == lastname);
+            Client? client = Clients.Find(c => c.GetName() == name && c.GetLastName() == lastname);
             if (client != null)
             {
                 Clients.Remove(client);
@@ -141,9 +137,9 @@ namespace System_Employee.Models
 
         public void ShowClients()
         {
-            string ShowLineSeparator = new('-', Console.WindowWidth);
+            Setting.LineSeparator('-');
             Console.WriteLine($"Nro | {"Nombre",-14} | {"Apellido",-14} | {"Edad",-4} | {"Email",-14} | {"Numero de Telefono",-14}");
-            Console.WriteLine(ShowLineSeparator);
+            Setting.LineSeparator('-');
             foreach (var client in Clients)
             {
                 client.ShowInfo();
